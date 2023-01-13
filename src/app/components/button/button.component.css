@@ -1,0 +1,6 @@
+
+
+.equal-button {
+    background-color: blue;
+    grid-row: span 2;
+}
