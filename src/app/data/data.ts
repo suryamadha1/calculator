@@ -72,7 +72,7 @@ export const additionalCalc = [
     {
         category: "result",
         value: "="  
-    },
+    }
 ]
 
 export interface ButtonProperties {

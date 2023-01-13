@@ -4,22 +4,22 @@
       Calculator
     </h3>
     <div class="bg-dark-subtle rounded mb-2" style="height: 80px;">
-      <h1 class="text-end calc-input">
-        {{inputAsObservable$ | async}}
+      <h1 class="text-end calc-input" id="input">
+        {{ inputString }}
       </h1>
     </div>
     <div class="container p-0">
       <div class="row" style="margin: auto;">
         <div class="col-9">
           <div class="row row-cols-3">
-            <button class="col btn btn-dark rounded-0 button-general" (click)="appendToInput(button.value)" *ngFor="let button of calculatorData">
+            <button class="col btn btn-dark rounded-0 button-general" (click)="button.category === 'function' ? clear() : appendToInput(button.value)" *ngFor="let button of calculatorData">
               {{button.value}}
             </button>
           </div>
         </div>
         <div class="col-3">
           <div class="row">
-            <button class="col-12 btn btn-dark rounded-0 button-operators" *ngFor="let button of additional">
+            <button class="col-12 btn btn-dark rounded-0 button-operators" (click)="button.category === 'result' ? showResult() : appendOperator(button.value)" *ngFor="let button of additional">
               {{button.value}}
             </button>
           </div>
