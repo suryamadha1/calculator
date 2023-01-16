@@ -112,25 +112,45 @@ export class AppComponent implements OnInit {
     // merge numbers & decimal based numbers first
     let newInputArray = [];
     let numberToBeAppended = '';
+    let priorities: number[][] = [[],[],[],[]];
     for(let inputIndex= 0; inputIndex < this.inputString.length; inputIndex++){
       let currentCharacter = this.inputString[inputIndex];
       if(!"+-/*".includes(currentCharacter)){
+        
         numberToBeAppended += currentCharacter;
       } else {
+        switch(currentCharacter){
+          case '+':
+            priorities[2].push(inputIndex);
+            break;
+          case '-':
+            priorities[3].push(inputIndex);
+            break;
+          case '/':
+            priorities[0].push(inputIndex);
+            break;
+          case '*':
+            priorities[1].push(inputIndex);
+            break;
+          default:
+            break;
+        }
         newInputArray.push(numberToBeAppended, currentCharacter);
         numberToBeAppended = '';
       }
     }
     newInputArray.push(numberToBeAppended);
     numberToBeAppended = '';
-    console.log(newInputArray)
+    let flattenedPriorities: number[] = [...priorities[0],...priorities[1],...priorities[2],...priorities[3]];
+    console.log(newInputArray, priorities, flattenedPriorities);
+
 
     let finalArray = []
+
     // act on division & multiplication operators 
-    
 
     // act on addition & subtraction operators
-    
+
   }
 
   showResult() {
@@ -138,6 +158,7 @@ export class AppComponent implements OnInit {
     if(existingInput.length === 0)
       return;
     console.log('current input -> ', existingInput);
-    this._updateInput(eval(existingInput.toString()));
+    this._calculateResult();
+    this._updateInput(parseFloat(eval(existingInput.toString())).toFixed(3));
   }
 }
